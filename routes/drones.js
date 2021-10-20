@@ -54,7 +54,7 @@ router.get("/drones/:id([a-z0-9]{24})/edit", async function (req, res, next) {
 router.post("/drones/:id([a-z0-9]{24})/edit", async function (req, res, next) {
   try {
     console.log('drone UPDATEEED')
-    await DroneModel.findByIdAndUpdate(req.params.id),
+    await DroneModel.findByIdAndUpdate(req.params.id, req.body),
       res.redirect("/drones");
   } catch (err) {
     next(err);
@@ -62,7 +62,7 @@ router.post("/drones/:id([a-z0-9]{24})/edit", async function (req, res, next) {
 });
 
 
-router.post('/drones/:id([a-z0-9]{24})/delete', (req, res, next) => {
+router.get('/drones/:id([a-z0-9]{24})/delete', (req, res, next) => {
   DroneModel.findByIdAndRemove(req.params.id)
     .then(() => res.redirect("/drones"))
     .catch(next);
@@ -70,3 +70,5 @@ router.post('/drones/:id([a-z0-9]{24})/delete', (req, res, next) => {
 
 
 module.exports = router;
+
+
